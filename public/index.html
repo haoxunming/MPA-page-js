@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <script type="text/javascript">
+      (function() {
+        var width = 720; //psd宽度 ,default
+        var fontSize = 100; //字体大小
+        var widthProportion = function() {
+          var p =
+            ((document.body && document.documentElement.clientWidth) ||
+              document.getElementsByTagName("html")[0].offsetWidth) / width;
+          var px1 = (p * fontSize).toFixed(2);
+          //console.log("px1 ="+px1);
+          px1 = px1 > 100 ? 100 : px1;
+          px1 = px1 < 0.08 ? 0.08 : px1;
+
+          return px1;
+        };
+        var changePage = function() {
+          document
+            .getElementsByTagName("html")[0]
+            .setAttribute(
+              "style",
+              "font-size:" + widthProportion() + "px; !important"
+            );
+        };
+        changePage();
+        window.addEventListener(
+          "onorientationchange" in window ? "orientationchange" : "resize",
+          function() {
+            setTimeout(function() {
+              changePage();
+            }, 300);
+          },
+          false
+        ); //手机改变状态时也执行该方法
+      })();
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
